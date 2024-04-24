@@ -14,7 +14,8 @@ export async function createReleaseDraft(
     repo: github.context.repo.repo,
     tag_name: versionTag,
     name: version.removePrefix(versionTag),
-    body: markdown.toUnorderedList(changeLog),
+    //body: markdown.toUnorderedList(changeLog),
+    body: changeLog,
     draft: true,
     prerelease: version.isPreRelease(versionTag)
   })
