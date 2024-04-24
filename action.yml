@@ -2,6 +2,16 @@ name: 'Auto release draft'
 description: 'Draft a new release for the repository'
 author: 'Lourenço Almeida'
 
+inputs:
+  repo-token:
+    description:
+      'The GITHUB_TOKEN used to authenticate to the current repository'
+    required: true
+
+outputs:
+  release-url:
+    description: 'The URL of the Github release that was drafted'
+
 runs:
   using: node20
   main: dist/index.js
