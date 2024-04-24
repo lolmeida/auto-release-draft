@@ -14,9 +14,10 @@ export async function run(): Promise<void> {
     if (versionTag && version.isSemVer(versionTag)) {
       const changeLog = await git.getChangesIntroducedByTag(versionTag)
       releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog)
+      console.log(`Created release draft: ${releaseUrl}`)
     }
 
-    core.setOutput('release-url', `https://example${ releaseUrl }.com`)
+    core.setOutput('release-url', `https://example.com`)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
