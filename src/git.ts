@@ -33,10 +33,9 @@ export async function getPreviousVersionTag(
       '--first-parent', // Only consider the first parent of the commit
       `${tag}^`
     ], // The commit to start from
-    options
-  )
+    options)
 
-  core.debug(`The previous version tag is: ${exitCode}`) // Debug message
+  core.debug(`The previous version tag is: ${previousTag}`) // Debug message
 
   return exitCode === 0 ? previousTag.trim() : null // Remove the trailing newline
 }
