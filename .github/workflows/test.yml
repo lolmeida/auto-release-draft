@@ -22,6 +22,6 @@ jobs:
       - name: Create release draft for a version tag
         id: create-release-draft
         uses: ./
-     
+
       - name: Print the URL of the release draft
         run: echo ${{ steps.create-release-draft.outputs.release-url }}
