@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import * as event from './event'
 import * as version from './version'
+import * as git from './git'
 
 
 export async function run(): Promise<void> {
@@ -9,7 +10,9 @@ export async function run(): Promise<void> {
     const tag = event.getCreatedTag();
 
     if ( tag && version.isSemVer(tag)) {
-      // TODO: Implement the rest of the workflow
+        const changeLog = await git.getChangesIntroducedByTag(tag);
+        
+
     }
 
 
