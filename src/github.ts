@@ -19,7 +19,7 @@ export async function createReleaseDraft(
     prerelease: version.isPreRelease(versionTag)
   })
 
-  if (response.status !== 201) {
+  if (response.status != 201) {
     throw new Error(`Failed to create release draft: ${response.status}`)
   }
   core.info(`Created release draft: ${response.data.name}`)
