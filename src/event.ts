@@ -11,5 +11,6 @@ export function getCreatedTag(): string | null {
     core.info('The created reference was a branch, not a tag')
     return null
   }
+  core.info(`XXXXXXX: ${github.context.payload.ref}`)
   return github.context.payload.ref
 }
