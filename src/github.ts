@@ -1,7 +1,7 @@
 import * as github from '@actions/github'
 import * as core from '@actions/core'
 import * as version from './version'
-import * as markdown from './markdown'
+//import * as markdown from './markdown'
 
 export async function createReleaseDraft(
   versionTag: string,
@@ -14,7 +14,8 @@ export async function createReleaseDraft(
     repo: github.context.repo.repo,
     tag_name: versionTag,
     name: version.removePrefix(versionTag),
-    body: markdown.toUnorderedList(changeLog),
+    body: changeLog,
+    //body: markdown.toUnorderedList(changeLog),
     prerelease: version.isPreRelease(versionTag),
     draft: true
   })
