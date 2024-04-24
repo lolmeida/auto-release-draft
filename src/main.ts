@@ -6,14 +6,14 @@ import * as github from './github'
 
 export async function run(): Promise<void> {
   try {
-    const token = core.getInput('repo-token')
+    const repoToken = core.getInput('repo-token')
 
-    const tag = event.getCreatedTag()
+    const versionTag = event.getCreatedTag()
     let releaseUrl = ''
 
-    if (tag && version.isSemVer(tag)) {
-      const changeLog = await git.getChangesIntroducedByTag(tag)
-      releaseUrl = await github.createReleaseDraft(tag, token, changeLog)
+    if (versionTag && version.isSemVer(versionTag)) {
+      const changeLog = await git.getChangesIntroducedByTag(versionTag)
+      releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog)
     }
 
     core.setOutput('release-url', releaseUrl)

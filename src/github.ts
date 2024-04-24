@@ -15,9 +15,8 @@ export async function createReleaseDraft(
     tag_name: versionTag,
     name: version.removePrefix(versionTag),
     body: markdown.toUnorderedList(changeLog),
-    //body: changeLog,
-    draft: true,
-    prerelease: version.isPreRelease(versionTag)
+    prerelease: version.isPreRelease(versionTag),
+    draft: true
   })
 
   if (response.status !== 201) {
