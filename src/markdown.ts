@@ -1,3 +1,3 @@
-export function toUnorderedList(items: string[]) {
-return items.map((item: string) => `- ${item}`).join('\n')
+export function toUnorderedList(items: string[]): any {
+  return items.map((item: string) => `- ${item}`).join('\n')
 }
