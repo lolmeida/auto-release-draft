@@ -13,7 +13,11 @@ export async function run(): Promise<void> {
 
     if (versionTag && version.isSemVer(versionTag)) {
       const changeLog = await git.getChangesIntroducedByTag(versionTag)
-      releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog)
+      releaseUrl = await github.createReleaseDraft(
+        versionTag,
+        repoToken,
+        changeLog
+      )
       core.info(`Created release draft: ${releaseUrl}`)
     }
 
