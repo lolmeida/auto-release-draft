@@ -1,7 +1,7 @@
 import * as github from '@actions/github'
 import * as core from '@actions/core'
 import * as version from './version'
-import * as markdown from './markdown.tsz'
+//import * as markdown from './markdown.tsz'
 
 export async function createReleaseDraft(
   versionTag: string,
