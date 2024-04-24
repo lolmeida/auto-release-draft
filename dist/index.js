@@ -33735,6 +33735,7 @@ exports.getCreatedTag = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 function getCreatedTag() {
+    core.info('github.context.eventName:');
     if (github.context.eventName !== 'create') {
         core.info(`The event name was ${github.context.eventName}`);
         return null;
@@ -33902,9 +33903,8 @@ async function createReleaseDraft(versionTag, repoToken, changeLog) {
         tag_name: versionTag,
         name: version.removePrefix(versionTag),
         body: markdown.toUnorderedList(changeLog),
-        //body: changeLog,
-        draft: true,
-        prerelease: version.isPreRelease(versionTag)
+        prerelease: version.isPreRelease(versionTag),
+        draft: true
     });
     if (response.status !== 201) {
         throw new Error(`Failed to create release draft: ${response.status}`);
@@ -33954,12 +33954,13 @@ const git = __importStar(__nccwpck_require__(6350));
 const github = __importStar(__nccwpck_require__(978));
 async function run() {
     try {
-        const token = core.getInput('repo-token');
-        const tag = event.getCreatedTag();
+        const repoToken = core.getInput('repo-token');
+        const versionTag = event.getCreatedTag();
         let releaseUrl = '';
-        if (tag && version.isSemVer(tag)) {
-            const changeLog = await git.getChangesIntroducedByTag(tag);
-            releaseUrl = await github.createReleaseDraft(tag, token, changeLog);
+        if (versionTag && version.isSemVer(versionTag)) {
+            const changeLog = await git.getChangesIntroducedByTag(versionTag);
+            releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog);
+            core.info(`Created release draft: ${releaseUrl}`);
         }
         core.setOutput('release-url', releaseUrl);
     }
