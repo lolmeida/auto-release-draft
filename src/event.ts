@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 
 export function getCreatedTag(): string | null {
   if (github.context.eventName !== 'create') {
-    core.info(`The event name was ${github.context.eventName}\n${github.context.payload.toString()}`)
+    core.info(`The event name XXXX was ${github.context.eventName}`)
     return null
   }
 
