@@ -1,16 +1,16 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "auto-release-drafts",
+  "description": "Drafts a new release when a new tag is pushed",
   "version": "0.0.0",
-  "author": "",
+  "author": "Lourenço Almeida",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/lolmeida/auto-release-draft",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/olmeida/auto-release-draft.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/olmeida/auto-release-draft/issues"
   },
   "keywords": [
     "actions",
