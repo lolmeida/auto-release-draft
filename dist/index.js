@@ -33735,7 +33735,6 @@ exports.getCreatedTag = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 function getCreatedTag() {
-    core.info('github.context.eventName:');
     if (github.context.eventName !== 'create') {
         core.info(`The event name was ${github.context.eventName}`);
         return null;
@@ -33811,7 +33810,7 @@ async function getPreviousVersionTag(tag) {
         `${tag}^`
     ], // The commit to start from
     options);
-    core.debug(`The previous version tag is: ${exitCode}`); // Debug message
+    core.debug(`The previous version tag is: ${previousTag}`); // Debug message
     return exitCode === 0 ? previousTag.trim() : null; // Remove the trailing newline
 }
 exports.getPreviousVersionTag = getPreviousVersionTag;
@@ -34033,8 +34032,8 @@ function isPreRelease(version) {
 }
 exports.isPreRelease = isPreRelease;
 function removePrefix(version) {
-    const parsedVersion = semver.parse(version);
-    return parsedVersion ? parsedVersion.version : version;
+    const parsedVersion = semver.valid(version);
+    return parsedVersion ? parsedVersion : version;
 }
 exports.removePrefix = removePrefix;
 

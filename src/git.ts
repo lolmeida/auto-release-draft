@@ -33,7 +33,8 @@ export async function getPreviousVersionTag(
       '--first-parent', // Only consider the first parent of the commit
       `${tag}^`
     ], // The commit to start from
-    options)
+    options
+  )
 
   core.debug(`The previous version tag is: ${previousTag}`) // Debug message
 
