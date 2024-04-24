@@ -16,7 +16,7 @@ export async function run(): Promise<void> {
       releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog)
     }
 
-    core.setOutput('release-url', releaseUrl)
+    core.setOutput('release-url', "https://example.com")
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
