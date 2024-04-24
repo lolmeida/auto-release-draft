@@ -10,7 +10,6 @@ export async function run(): Promise<void> {
 
     const versionTag = event.getCreatedTag()
     let releaseUrl = ''
-    core.info(`The version tag XXXX is: ${versionTag}`)
 
     if (versionTag && version.isSemVer(versionTag)) {
       const changeLog = await git.getChangesIntroducedByTag(versionTag)
