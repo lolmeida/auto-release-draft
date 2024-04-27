@@ -33804,7 +33804,7 @@ async function getPreviousVersionTag(tag) {
     [
         'describe', // Arguments
         '--match',
-        'v[0-9]*', // Only consider tags that start with "v"
+        'v[0-9]*', // matches tags that start with v and are followed by a number
         '--abbrev=0', // Do not abbreviate the output
         '--first-parent', // Only consider the first parent of the commit
         `${tag}^`
@@ -33896,6 +33896,7 @@ const version = __importStar(__nccwpck_require__(1946));
 const markdown = __importStar(__nccwpck_require__(4270));
 async function createReleaseDraft(versionTag, repoToken, changeLog) {
     const octokit = github.getOctokit(repoToken);
+    //const response = await octokit.repos.createRelease({
     const response = await octokit.rest.repos.createRelease({
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
@@ -33959,7 +33960,6 @@ async function run() {
         if (versionTag && version.isSemVer(versionTag)) {
             const changeLog = await git.getChangesIntroducedByTag(versionTag);
             releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog);
-            core.info(`Created release draft: ${releaseUrl}`);
         }
         core.setOutput('release-url', releaseUrl);
     }
