@@ -20,7 +20,7 @@ export async function run(): Promise<void> {
       )
     }
 
-    core.setOutput('release-url', releaseUrl)
+    core.setOutput('release-url', releaseUrlx)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
