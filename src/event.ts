@@ -13,3 +13,4 @@ export function getCreatedTag(): string | null {
   }
   return github.context.payload.ref
 }
+
