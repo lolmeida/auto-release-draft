@@ -18,7 +18,6 @@ export async function run(): Promise<void> {
         repoToken,
         changeLog
       )
-      core.info(`Created release draft: ${releaseUrl}`)
     }
 
     core.setOutput('release-url', releaseUrl)
