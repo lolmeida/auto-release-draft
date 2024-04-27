@@ -33804,13 +33804,13 @@ async function getPreviousVersionTag(tag) {
     [
         'describe', // Arguments
         '--match',
-        'v[0-9]*', // Only consider tags that start with "v"
+        'v[0-9]*', // matches tags that start with v and are followed by a number
         '--abbrev=0', // Do not abbreviate the output
         '--first-parent', // Only consider the first parent of the commit
         `${tag}^`
     ], // The commit to start from
     options);
-    core.debug(`The previous version tag is: ${exitCode}`); // Debug message
+    core.debug(`The previous version tag is: ${previousTag}`); // Debug message
     return exitCode === 0 ? previousTag.trim() : null; // Remove the trailing newline
 }
 exports.getPreviousVersionTag = getPreviousVersionTag;
@@ -33896,15 +33896,15 @@ const version = __importStar(__nccwpck_require__(1946));
 const markdown = __importStar(__nccwpck_require__(4270));
 async function createReleaseDraft(versionTag, repoToken, changeLog) {
     const octokit = github.getOctokit(repoToken);
+    //const response = await octokit.repos.createRelease({
     const response = await octokit.rest.repos.createRelease({
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         tag_name: versionTag,
         name: version.removePrefix(versionTag),
         body: markdown.toUnorderedList(changeLog),
-        //body: changeLog,
-        draft: true,
-        prerelease: version.isPreRelease(versionTag)
+        prerelease: version.isPreRelease(versionTag),
+        draft: true
     });
     if (response.status !== 201) {
         throw new Error(`Failed to create release draft: ${response.status}`);
@@ -33954,12 +33954,12 @@ const git = __importStar(__nccwpck_require__(6350));
 const github = __importStar(__nccwpck_require__(978));
 async function run() {
     try {
-        const token = core.getInput('repo-token');
-        const tag = event.getCreatedTag();
+        const repoToken = core.getInput('repo-token');
+        const versionTag = event.getCreatedTag();
         let releaseUrl = '';
-        if (tag && version.isSemVer(tag)) {
-            const changeLog = await git.getChangesIntroducedByTag(tag);
-            releaseUrl = await github.createReleaseDraft(tag, token, changeLog);
+        if (versionTag && version.isSemVer(versionTag)) {
+            const changeLog = await git.getChangesIntroducedByTag(versionTag);
+            releaseUrl = await github.createReleaseDraft(versionTag, repoToken, changeLog);
         }
         core.setOutput('release-url', releaseUrl);
     }
@@ -34032,8 +34032,8 @@ function isPreRelease(version) {
 }
 exports.isPreRelease = isPreRelease;
 function removePrefix(version) {
-    const parsedVersion = semver.parse(version);
-    return parsedVersion ? parsedVersion.version : version;
+    const parsedVersion = semver.valid(version);
+    return parsedVersion ? parsedVersion : version;
 }
 exports.removePrefix = removePrefix;
 

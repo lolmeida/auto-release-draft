@@ -28,7 +28,7 @@ export async function getPreviousVersionTag(
     [
       'describe', // Arguments
       '--match',
-      'v[0-9]*', // Only consider tags that start with "v"
+      'v[0-9]*', // matches tags that start with v and are followed by a number
       '--abbrev=0', // Do not abbreviate the output
       '--first-parent', // Only consider the first parent of the commit
       `${tag}^`
@@ -36,7 +36,7 @@ export async function getPreviousVersionTag(
     options
   )
 
-  core.debug(`The previous version tag is: ${exitCode}`) // Debug message
+  core.debug(`The previous version tag is: ${previousTag}`) // Debug message
 
   return exitCode === 0 ? previousTag.trim() : null // Remove the trailing newline
 }
